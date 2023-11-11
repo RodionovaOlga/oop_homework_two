@@ -20,3 +20,24 @@ with open (r"C:\Users\Ольга\OneDrive\Рабочий стол\homework_two\d
         f.readline()
         
 print(cook_book)
+
+
+def get_shop_list_by_dishes(dishes, person_quant):
+    grocery_dict = {}  
+    for _dish in dishes:
+        for ingredient in cook_book[_dish]:
+            ingredient_list = dict([(ingredient['ingredient_name'],
+                                     {'quantity': int(ingredient['quantity']) * person_quant,
+                                      'measure': ingredient['measure']})])
+            if grocery_dict.get(ingredient['ingredient_name']) == 'None':
+                _plus = (int(grocery_dict[ingredient['ingredient_name']]['quantity']) +
+                           int(ingredient_list[ingredient['ingredient_name']]['quantity']))
+                grocery_dict[ingredient['ingredient_name']]['quantity'] = _plus
+            else:
+                grocery_dict.update(ingredient_list)
+    for key, value in grocery_dict.items():
+        print(key, ' : ', value)
+    return grocery_dict
+
+
+get_shop_list_by_dishes(['Запеченный картофель', 'Омлет', 'Фахитос', 'Омлет', 'Запеченный картофель'], 5)
